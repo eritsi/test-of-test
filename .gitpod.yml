@@ -1,0 +1,26 @@
+# Image of workspace. Learn more: https://www.gitpod.io/docs/configure/workspaces/workspace-image
+image: gitpod/workspace-python-3.9:2022-04-11-18-21-27
+
+# List the start up tasks. Learn more: https://www.gitpod.io/docs/configure/workspaces/tasks
+tasks:
+  - name: Script Task
+    before: |
+      pip install -r requirements.txt
+  - name: install jupyter
+    before: |
+      pip install jupyter jupytext 
+      jupyter notebook --generate-config
+      echo -e '\nc.NotebookApp.contents_manager_class = "jupytext.TextFileContentsManager"' >> ~/.jupyter/jupyter_notebook_config.py
+      echo -e '\nc.ContentsManager.default_jupytext_formats = "ipynb,py"' >> ~/.jupyter/jupyter_notebook_config.py
+      echo -e '\nc.NotebookApp.token = ""' >> ~/.jupyter/jupyter_notebook_config.py
+      echo -e '\nc.NotebookApp.password = ""' >> ~/.jupyter/jupyter_notebook_config.py
+      jupyter notebook --ip=*
+    openMode: split-right
+# List the ports to expose. Learn more: https://www.gitpod.io/docs/configure/workspaces/ports
+ports:
+  - name: Frontend
+    description: Port 3000 for the frontend
+    port: 3000
+    onOpen: open-preview
+
+# Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
